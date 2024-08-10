@@ -1,0 +1,26 @@
+<html lang="en">
+    <%- include('../partials/head.ejs') %>
+<body>
+
+    <%- include('../partials/nav.ejs') %>
+
+    <div class="create-blog content">
+        <form action="<%= edit ? '/blogs/edit': '/blogs' %>" method="post">
+            <% if (edit) { %>
+                <input type="hidden" name="id" value="<%= blog.id %>">
+
+            <% } %>
+            <label for="title">Blog title:</label>
+            <input type="text" id="title" name="title" value="<%= edit ? blog.title : '' %>">
+            <label for="snippet">Blog snippet:</label>
+            <input type="text" id="snippet" name="snippet" value="<%= edit ? blog.snippet : '' %>">
+            <label for="body">Blog body:</label>
+            <textarea id="body" name="body" ><%= edit ? blog.body : '' %></textarea>
+            <button><%= edit ? 'Edit' : 'Submit' %></button>
+        </form>  
+    </div>
+
+    <%- include('../partials/footer.ejs') %>
+
+</body>
+</html>
