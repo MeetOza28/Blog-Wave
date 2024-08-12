@@ -21,3 +21,19 @@ const blog_details = (req, res) =>{
             res.status(404).render('404', { title: 'Blog not found' });
         });
 }
+
+const blog_create_get = (req, res) => {
+    res.render('blogs/create', { edit: false, title: 'Create Blog' });
+}
+
+const blog_create_post = (req, res) => {
+    const blog = new Blog(req.body);
+
+    blog.save()
+        .then((result) => {
+            res.redirect('/blogs');
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+}
