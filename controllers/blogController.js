@@ -37,3 +37,15 @@ const blog_create_post = (req, res) => {
             console.log(err);
         })
 }
+
+const blog_delete = (req, res) => {
+    const id = req.params.id;
+
+    Blog.findByIdAndDelete(id)
+        .then(result => {
+            res.json({ redirect: '/blogs' });
+        })
+        .catch(err => {
+            console.log(err);
+        })
+}
