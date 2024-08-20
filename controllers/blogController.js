@@ -49,3 +49,19 @@ const blog_delete = (req, res) => {
             console.log(err);
         })
 }
+
+const blog_edit_get = (req, res) => {
+    const id = req.params.id;
+
+    Blog.findById(id)
+        .then((blog) => {
+            if (!blog) {
+                return res.status(404).render('404', { title: 'Blog not found' });
+            }
+            res.render('blogs/create', { edit: true, blog, title: 'Edit Blog' });
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).json({ message: 'Server error', error: err.message });
+        });
+};
