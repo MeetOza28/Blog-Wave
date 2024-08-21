@@ -65,3 +65,35 @@ const blog_edit_get = (req, res) => {
             res.status(500).json({ message: 'Server error', error: err.message });
         });
 };
+
+const blog_edit_post = (req, res) => {
+    const updatedBlogData = {
+        id: req.body.id,
+        title: req.body.title,
+        snippet: req.body.snippet,
+        body: req.body.body
+    };
+
+    Blog.findByIdAndUpdate(req.body.id, updatedBlogData, { new: true })
+        .then(updatedBlog => {
+            if (!updatedBlog) {
+                return res.status(404).send('Blog not found');
+            }
+            console.log('Blog updated successfully');
+            res.redirect('/blogs');
+        })
+        .catch(err => {
+            console.error('Error updating blog:', err);
+            res.status(500).send('Internal Server Error');
+        });
+};
+
+module.exports = {
+    blog_index,
+    blog_details,
+    blog_create_get,
+    blog_create_post,
+    blog_delete,
+    blog_edit_get,
+    blog_edit_post
+}
